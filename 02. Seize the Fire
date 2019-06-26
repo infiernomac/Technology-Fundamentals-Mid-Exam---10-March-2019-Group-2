@@ -1,0 +1,61 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Seize_the_Fire
+{
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			List<string> fireAndCell = Console.ReadLine().Split("#").ToList();
+			int water = int.Parse(Console.ReadLine());
+
+			List<string> typeOfFire = new List<string>();
+			List<int> valueOfCell = new List<int>();
+			int totalFire = 0;
+			double effort = 0;
+
+			string[] split = new string[2];
+
+			for (int i = 0; i < fireAndCell.Count; i++)
+			{
+				split = fireAndCell[i].Split(" = ");
+
+				typeOfFire.Add(split[0]);
+				valueOfCell.Add(int.Parse(split[1]));
+			}
+			Console.WriteLine("Cells:");
+			for (int i = 0; i < typeOfFire.Count; i++)
+			{
+				if (water - valueOfCell[i] >= 0)
+				{
+					if (typeOfFire[i].Equals("High") && valueOfCell[i] >= 81 && valueOfCell[i] <= 125)
+					{
+						water -= valueOfCell[i];
+						totalFire += valueOfCell[i];
+						effort += valueOfCell[i] * 0.25;
+						Console.WriteLine($"- {valueOfCell[i]}");
+					}
+					else if (typeOfFire[i].Equals("Medium") && valueOfCell[i] >= 51 && valueOfCell[i] <= 80)
+					{
+						water -= valueOfCell[i];
+						totalFire += valueOfCell[i];
+						effort += valueOfCell[i] * 0.25;
+						Console.WriteLine($"- {valueOfCell[i]}");
+					}
+					else if (typeOfFire[i].Equals("Low") && valueOfCell[i] >= 1 && valueOfCell[i] <= 50)
+					{
+						water -= valueOfCell[i];
+						totalFire += valueOfCell[i];
+						effort += valueOfCell[i] * 0.25;
+						Console.WriteLine($"- {valueOfCell[i]}");
+					}
+				}
+			}
+
+			Console.WriteLine($"Effort: {effort:f2}");
+			Console.WriteLine($"Total Fire: {totalFire}");
+		}
+	}
+}
