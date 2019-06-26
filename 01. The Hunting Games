@@ -1,0 +1,44 @@
+using System;
+
+namespace The_Hunting_Games
+{
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			int daysOfAdventure = int.Parse(Console.ReadLine());
+			int players = int.Parse(Console.ReadLine());
+			double groupEnergy = double.Parse(Console.ReadLine());
+			double waterPerDayForOnePlayer = double.Parse(Console.ReadLine()) * daysOfAdventure * players;
+			double foodPerDayForOnePlayer = double.Parse(Console.ReadLine()) * daysOfAdventure * players;
+
+			for (int i = 1; i <= daysOfAdventure; i++)
+			{
+				double energyLost = double.Parse(Console.ReadLine());
+
+				groupEnergy -= energyLost;
+
+				if (groupEnergy <= 0)
+				{
+					Console.WriteLine($"You will run out of energy. You will be left with {foodPerDayForOnePlayer:f2} food and {waterPerDayForOnePlayer:f2} water.");
+					return;
+				}
+
+				if ((i % 2).Equals(0))
+				{
+					groupEnergy *= 1.05;
+
+					waterPerDayForOnePlayer *= 0.7;
+				}
+				if ((i % 3).Equals(0))
+				{
+					foodPerDayForOnePlayer -= foodPerDayForOnePlayer / players;
+
+					groupEnergy *= 1.1;
+				}
+			}
+
+			Console.WriteLine($"You are ready for the quest. You will be left with - {groupEnergy:f2} energy!");
+		}
+	}
+}
